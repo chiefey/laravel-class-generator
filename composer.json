@@ -1,0 +1,49 @@
+{
+    "name": "chiefey/laravel-class-generator",
+    "description": "Extend Laravels built in generators to build custom and consistent Model, Controller, and other classes.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "class",
+        "generator",
+        "model",
+        "controller",
+        "migration",
+        "stub"
+    ],
+    "authors": [
+        {
+            "name": "Brian Gutowski",
+            "email": "chief@chiefey.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^8.70"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Chiefey\\Generator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Chiefey\\Test\\Generator\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Chiefey\\Generator\\GeneratorServiceProvider"
+            ]
+        }
+    }
+}
