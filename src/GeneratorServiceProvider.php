@@ -2,6 +2,7 @@
 
 namespace Chiefey\Generator;
 
+use Chiefey\Generator\Console\Commands\ControllerMakeCommand;
 use Chiefey\Generator\Console\Commands\ModelMakeCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +28,7 @@ class GeneratorServiceProvider extends ServiceProvider implements DeferrableProv
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
+                ControllerMakeCommand::class,
                 ModelMakeCommand::class,
             ]);
         }
@@ -40,6 +42,7 @@ class GeneratorServiceProvider extends ServiceProvider implements DeferrableProv
     public function provides()
     {
         return [
+            ControllerMakeCommand::class,
             ModelMakeCommand::class,
         ];
     }

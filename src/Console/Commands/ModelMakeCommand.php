@@ -4,10 +4,32 @@ namespace Chiefey\Generator\Console\Commands;
 
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Console\ModelMakeCommand as IlluminateModelMakeCommand;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ModelMakeCommand extends IlluminateModelMakeCommand
 {
+    /**
+     * Create a controller for the model.
+     *
+     * @return void
+     */
+    protected function createController()
+    {
+        $controller = Str::studly(class_basename($this->argument('name')));
+
+        $modelName = $this->qualifyClass($this->getNameInput());
+
+        $this->call('make:controller', array_filter([
+            'name' => "{$controller}Controller",
+            '--model' => $this->option('resource') || $this->option('api') ? $modelName : null,
+            '--api' => $this->option('api'),
+            '--requests' => $this->option('requests') || $this->option('all'),
+            '--force' => $this->option('force'),
+            '--definition' => $this->option('definition'),
+        ]));
+    }
+
     /**
      * Build the class with the given name.
      *
