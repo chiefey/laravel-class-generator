@@ -2,7 +2,6 @@
 
 namespace Chiefey\Generator\Console\Commands;
 
-// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -15,7 +14,7 @@ class ControllerMakeCommand extends \Illuminate\Routing\Console\ControllerMakeCo
      * @return string
      */
     protected function resolveStubPath($stub)
-    {        
+    {
         if (file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))) {
             return $customPath;
         } else if (file_exists($customPath = __DIR__ . $stub)) {
@@ -23,6 +22,35 @@ class ControllerMakeCommand extends \Illuminate\Routing\Console\ControllerMakeCo
         } else {
             return parent::resolveStubPath($stub);
         }
+    }
+
+    /**
+     * Generate the form requests for the given model and classes.
+     *
+     * @param  string  $modelName
+     * @param  string  $storeRequestClass
+     * @param  string  $updateRequestClass
+     * @return array
+     */
+    protected function generateFormRequests($modelClass, $storeRequestClass, $updateRequestClass)
+    {
+        $storeRequestClass = 'Store' . class_basename($modelClass) . 'Request';
+
+        $this->call('make:request', array_filter([
+            'name' => $storeRequestClass,
+            '--model' => class_basename($modelClass),
+            '--definition' => $this->option('definition'),
+        ]));
+
+        $updateRequestClass = 'Update' . class_basename($modelClass) . 'Request';
+
+        $this->call('make:request', array_filter([
+            'name' => $updateRequestClass,
+            '--model' => class_basename($modelClass),
+            '--definition' => $this->option('definition'),
+        ]));
+
+        return [$storeRequestClass, $updateRequestClass];
     }
 
     /**
