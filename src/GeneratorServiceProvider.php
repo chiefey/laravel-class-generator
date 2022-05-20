@@ -3,6 +3,7 @@
 namespace Chiefey\Generator;
 
 use Chiefey\Generator\Console\Commands\ControllerMakeCommand;
+use Chiefey\Generator\Console\Commands\MigrateMakeCommand;
 use Chiefey\Generator\Console\Commands\ModelMakeCommand;
 use Chiefey\Generator\Console\Commands\RequestMakeCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -32,6 +33,7 @@ class GeneratorServiceProvider extends ServiceProvider implements DeferrableProv
                 ControllerMakeCommand::class,
                 ModelMakeCommand::class,
                 RequestMakeCommand::class,
+                MigrateMakeCommand::class,
             ]);
         }
     }
@@ -47,6 +49,7 @@ class GeneratorServiceProvider extends ServiceProvider implements DeferrableProv
             ControllerMakeCommand::class,
             ModelMakeCommand::class,
             RequestMakeCommand::class,
+            MigrateMakeCommand::class,
         ];
     }
 }
